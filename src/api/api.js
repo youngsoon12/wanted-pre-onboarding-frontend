@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
-const url = "https://pre-onboarding-selection-task.shop/";
+const url = 'https://www.pre-onboarding-selection-task.shop/';
 
 /*회원가입*/
 export function signUpAPI(data) {
   console.log(data);
   return axios.post(
-    url + "auth/signup",
-    { ...data },
+    url + 'auth/signup',
+    {...data},
     {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }
   );
@@ -18,11 +18,11 @@ export function signUpAPI(data) {
 /*로그인 */
 export function loginAPI(data) {
   return axios.post(
-    url + "auth/signin",
-    { ...data },
+    url + 'auth/signin',
+    {...data},
     {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }
   );
@@ -30,9 +30,9 @@ export function loginAPI(data) {
 
 // Todo 데이터 받아오기
 export function getTodoAPI() {
-  return axios.get(url + "todos", {
+  return axios.get(url + 'todos', {
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("jwt"),
+      Authorization: 'Bearer ' + localStorage.getItem('jwt'),
     },
   });
 }
@@ -41,12 +41,12 @@ export function getTodoAPI() {
 export function postTodoAPI(data) {
   return axios
     .post(
-      url + "todos",
-      { todo: data },
+      url + 'todos',
+      {todo: data},
       {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+          'Content-Type': 'application/json',
         },
       }
     )
@@ -58,11 +58,11 @@ export function putTodoAPI(id, data) {
   return axios
     .put(
       url + `todos/${id}`,
-      { todo: data, isCompleted: false },
+      {todo: data, isCompleted: false},
       {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+          'Content-Type': 'application/json',
         },
       }
     )
@@ -74,7 +74,7 @@ export function delTodoAPI(id) {
   return axios
     .delete(url + `todos/${id}`, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     })
     .then(getTodoAPI);
@@ -85,11 +85,11 @@ export function putTodoCompletAPI(id, todos, boolean) {
   return axios
     .put(
       url + `todos/${id}`,
-      { todo: todos, isCompleted: boolean },
+      {todo: todos, isCompleted: boolean},
       {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+          'Content-Type': 'application/json',
         },
       }
     )

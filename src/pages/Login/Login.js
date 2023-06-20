@@ -1,64 +1,64 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import styled from "styled-components";
-import { signUpAPI, loginAPI } from "../../api/api";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect} from 'react';
+import {useState} from 'react';
+import styled from 'styled-components';
+import {signUpAPI, loginAPI} from '../../api/api';
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
   const [signUpOn, setSignUpOn] = useState(false);
   const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [signUpData, setSignUpData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [signUpErr, setSingUpErr] = useState(true);
 
   const [btnActive, setBtnActive] = useState(true);
 
   useEffect(() => {
-    localStorage.getItem("jwt") && navigate("/todo");
+    localStorage.getItem('jwt') && navigate('/todo');
   }, []);
 
   useEffect(() => {
-    const { email, password } = loginData;
-    if (email.includes("@") && password.length > 7) setBtnActive(false);
+    const {email, password} = loginData;
+    if (email.includes('@') && password.length > 7) setBtnActive(false);
     else setBtnActive(true);
   }, [loginData]);
 
   const onChangeLogin = (e) => {
-    const { name, value } = e.target;
-    setLoginData({ ...loginData, [name]: value });
+    const {name, value} = e.target;
+    setLoginData({...loginData, [name]: value});
   };
 
   const onChangeSignUp = (e) => {
-    const { name, value } = e.target;
-    setSignUpData({ ...signUpData, [name]: value });
+    const {name, value} = e.target;
+    setSignUpData({...signUpData, [name]: value});
   };
 
   const onLogin = () => {
     loginAPI(loginData)
       .then((res) => {
         res.status === 200 &&
-          localStorage.setItem("jwt", res.data.access_token);
-        navigate("/todo");
+          localStorage.setItem('jwt', res.data.access_token);
+        navigate('/todo');
       })
-      .catch((res) => alert("로그인에 실패하였습니다."));
+      .catch((res) => alert('로그인에 실패하였습니다.'));
   };
   const onSignup = () => {
-    const { email, password } = signUpData;
-    !(email.includes("@") && password.length > 7)
+    const {email, password} = signUpData;
+    !(email.includes('@') && password.length > 7)
       ? setSingUpErr(false)
       : setSingUpErr(true)
-      ? alert("회원가입 실패")
+      ? alert('회원가입 실패')
       : signUpAPI(signUpData)
           .then((res) => {
-            document.getElementById("id").value = "";
-            document.getElementById("pwd").value = "";
-            res.status === 201 && alert("회원가입에 성공하였습니다.");
+            document.getElementById('id').value = '';
+            document.getElementById('pwd').value = '';
+            res.status === 201 && alert('회원가입에 성공하였습니다.');
           })
           .catch((res) => alert(res.response.data.message));
   };
@@ -68,6 +68,7 @@ const Login = () => {
       <Container>
         <Title>로그인</Title>
         <InputArea>
+          {process.env.REACT_APP_API_URL}
           <IdPwWrap>
             <Input
               type="text"
